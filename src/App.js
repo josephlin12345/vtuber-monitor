@@ -24,7 +24,6 @@ const App = () => {
         const res = await fetch(url);
         const jsonData = await res.json();
         setLiveList(jsonData.live);
-        console.log('data updated');
       } catch(err) {
         console.error(err.message);
       }
@@ -36,10 +35,9 @@ const App = () => {
   }, [])
 
   useEffect(() => {
-    const newPlayerList = playerList.filter(vid => liveList.map(info => info.vid).includes(vid));
+    const newPlayerList = playerList.filter(vid => liveList.map(info => info.yt_video_key).includes(vid));
     if(playerList.toString() !== newPlayerList.toString()) {
       setPlayerList(newPlayerList)
-      console.log('playerlist updated');
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [liveList])
