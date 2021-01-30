@@ -2,7 +2,7 @@ import Item from './Item'
 
 const LiveList = ({ onClick, playerList, liveList }) => {
   return (
-    <div className='row row-cols-auto'>
+    <div className='nav-item'>
       {liveList && liveList.map((info) => (
         <Item
           info={info}
