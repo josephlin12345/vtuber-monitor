@@ -11,14 +11,14 @@ const Icons = ({ showLiveList, onClick }) => {
           <Setting />
           <IoChevronUpOutline
             style={{ color: 'red', cursor: 'pointer', width: '40px', height: '40px', background: '#424242' }}
-            className='ms-1 rounded-3'
+            className='rounded-3'
             onClick={onClick}
             title='收起(close)'
           />
         </div> :
         <div className='position-absolute me-2 mt-2' style={{ top: '0px', right: '0px' }}>
           <IoChevronDownOutline
-            style={{ color: 'red', cursor: 'pointer', width: '40px', height: '40px', background: '#212529'}}
+            style={{ color: 'red', cursor: 'pointer', width: '40px', height: '40px', background: '#212529' }}
             className='rounded-3'
             onClick={onClick}
             title='展開(open)'

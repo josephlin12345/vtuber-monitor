@@ -4,9 +4,9 @@ import Icons from './components/Icons'
 import { useState, useEffect } from 'react'
 
 const App = () => {
-  const [showLiveList, setShowLiveList] = useState(() => true);
-  const [playerList, setPlayerList] = useState(() => []);
-  const [liveList, setLiveList] = useState(() => []);
+  const [showLiveList, setShowLiveList] = useState(true);
+  const [playerList, setPlayerList] = useState([]);
+  const [liveList, setLiveList] = useState([]);
 
   // add or remove player
   const onClick = (vid) => {
@@ -31,7 +31,7 @@ const App = () => {
       }
     }
     getLiveList();
-    const intervalId = setInterval(() => getLiveList(), 60000);
+    const intervalId = setInterval(getLiveList, 5000);
     return () => clearInterval(intervalId);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -48,7 +48,7 @@ const App = () => {
   return (
     <>
       {showLiveList &&
-        <nav className='navbar navbar-expand bg-dark'>
+        <nav className='navbar bg-dark' style={{ minHeight: '100px' }}>
           <LiveList onClick={onClick} playerList={playerList} liveList={liveList}/>
           <Icons showLiveList={showLiveList} onClick={() => setShowLiveList(!showLiveList)} />
         </nav>
