@@ -1,12 +1,15 @@
-const Live = ({ info, playerSwitch, playing }) => {
+import { IoClose } from 'react-icons/io5'
+
+const Live = ({ data, playerSwitch }) => {
   return (
-    <div className='live' onClick={() => playerSwitch(info.yt_video_key)} >
-      <img src={info.channel.photo}
+    <div className='live' onClick={() => playerSwitch(data)} >
+      <img src={data.photo}
         alt=''
-        title={`${info.channel.name} - ${info.title}`}
+        title={`${data.name} - ${data.title}`}
         className='image'
-        style={playing ? { borderColor: '#ffc107' } : { borderColor: '#212529' }}
+        style={data.isPlaying ? { borderColor: '#ffc107' } : { borderColor: '#212529' }}
       />
+      {data.isEnded && <IoClose className='image' color='red' style={{ borderColor: '#ffc107' }} />}
     </div>
   )
 }

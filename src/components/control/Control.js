@@ -4,7 +4,7 @@ import Close from './Close'
 
 const Control = ({ navSwitch }) => {
   return (
-    <div className='control' >
+    <div className='control'>
       <Add />
       <Setting />
       <Close navSwitch={navSwitch} />

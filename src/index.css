@@ -18,25 +18,31 @@ nav {
   display: flex;
 }
 
+.tool {
+  position: relative;
+}
+
 .tool .tip {
   visibility: hidden;
-  width: 100px;
+  width: 40px;
   background-color: black;
-  color: #fff;
+  color: white;
   text-align: center;
-  padding: 5px;
+  padding: 3px;
   border-radius: 10px;
   position: absolute;
   top: 100%;
   left: 50%;
-  margin-left: -60px;
+  margin-left: -20px;
+  z-index: 1;
+  text-align: center;
 }
 
 .tool:hover .tip {
   visibility: visible;
 }
 
-.icon {
+.tool-icon {
   color: red;
   cursor: pointer;
   width: 40px;
@@ -55,9 +61,9 @@ nav {
 
 .live {
   cursor: pointer;
-  margin-left: 10px;
-  height: 80px;
-  width: 80px;
+  margin-left: 5px;
+  height: 90px;
+  width: 90px;
   position: relative;
 }
 
@@ -65,8 +71,9 @@ nav {
   border: 3px solid #212529;
   border-radius: 50%;
   width: 70px;
+  height: 70px;
   position: absolute;
-  top: 5px;
+  top: 7px;
 }
 
 .image:hover {

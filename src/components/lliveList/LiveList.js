@@ -1,14 +1,13 @@
 import Live from './Live'
 
-const LiveList = ({ playerSwitch, playerList, liveList }) => {
+const LiveList = ({ playerSwitch, videoList }) => {
   return (
     <div className='livelist'>
-      {liveList && liveList.map((info) => (
+      {videoList && videoList.map(data => (
         <Live
-          info={info}
-          key={info.id}
+          data={data}
+          key={data.id}
           playerSwitch={playerSwitch}
-          playing={playerList.includes(info.yt_video_key)}
         />
       ))}
     </div>

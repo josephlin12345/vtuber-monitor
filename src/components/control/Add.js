@@ -3,8 +3,8 @@ import { IoAddSharp } from 'react-icons/io5'
 const Add = () => {
   return (
     <div className='tool'>
-      <IoAddSharp className='icon' />
-      <span className='tip'>增加指定影片(add)</span>
+      <IoAddSharp className='tool-icon' />
+      <span className='tip'>add</span>
     </div>
   )
 }
