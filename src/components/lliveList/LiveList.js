@@ -1,13 +1,13 @@
-import Item from './Item'
+import Live from './Live'
 
-const LiveList = ({ onClick, playerList, liveList }) => {
+const LiveList = ({ playerSwitch, playerList, liveList }) => {
   return (
-    <div className='nav-item'>
+    <div className='livelist'>
       {liveList && liveList.map((info) => (
-        <Item
+        <Live
           info={info}
           key={info.id}
-          onClick={onClick}
+          playerSwitch={playerSwitch}
           playing={playerList.includes(info.yt_video_key)}
         />
       ))}

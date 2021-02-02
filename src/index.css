@@ -1,4 +1,83 @@
 body {
+  margin: 0px;
+  height: 100vh;
   background-color: #424242;
   overflow: hidden;
+}
+
+nav {
+  background-color: #212529;
+  height: 90px;
+}
+
+.control {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  margin: 5px;
+  display: flex;
+}
+
+.tool .tip {
+  visibility: hidden;
+  width: 100px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px;
+  border-radius: 10px;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -60px;
+}
+
+.tool:hover .tip {
+  visibility: visible;
+}
+
+.icon {
+  color: red;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  background: #424242;
+  border-radius: 20%;
+  margin-left: 3px;
+}
+
+.livelist {
+  max-width: calc(100vw - 135px);
+  height: 90px;
+  display: flex;
+  overflow: hidden;
+}
+
+.live {
+  cursor: pointer;
+  margin-left: 10px;
+  height: 80px;
+  width: 80px;
+  position: relative;
+}
+
+.image {
+  border: 3px solid #212529;
+  border-radius: 50%;
+  width: 70px;
+  position: absolute;
+  top: 5px;
+}
+
+.image:hover {
+  box-shadow: 0 0 1em #ff0000;
+}
+
+.players {
+  display: grid;
+  padding: 5px;
+}
+
+.player {
+  border: 0px;
 }

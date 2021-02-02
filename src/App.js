@@ -1,21 +1,20 @@
-import LiveList from './components/LiveList'
-import Players from './components/Players'
-import Icons from './components/Icons'
+import LiveList from './components/lliveList/LiveList'
+import Players from './components/players/Players'
+import Control from './components/control/Control'
 import { useState, useEffect } from 'react'
+import Open from './components/control/Open'
 
 const App = () => {
-  const [showLiveList, setShowLiveList] = useState(true);
+  const [showNavbar, setNavbar] = useState(true);
   const [playerList, setPlayerList] = useState([]);
   const [liveList, setLiveList] = useState([]);
 
   // add or remove player
-  const onClick = (vid) => {
-    if(playerList.includes(vid)) {
+  const playerSwitch = (vid) => {
+    if(playerList.includes(vid))
       setPlayerList(playerList.filter(player => player !== vid))
-    }
-    else {
+    else
       setPlayerList([...playerList, vid]);
-    }
   }
 
   // update liveList per 60 seconds
@@ -31,7 +30,7 @@ const App = () => {
       }
     }
     getLiveList();
-    const intervalId = setInterval(getLiveList, 5000);
+    const intervalId = setInterval(getLiveList, 60000);
     return () => clearInterval(intervalId);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -47,16 +46,14 @@ const App = () => {
 
   return (
     <>
-      {showLiveList &&
-        <nav className='navbar bg-dark' style={{ minHeight: '100px' }}>
-          <LiveList onClick={onClick} playerList={playerList} liveList={liveList}/>
-          <Icons showLiveList={showLiveList} onClick={() => setShowLiveList(!showLiveList)} />
+      {showNavbar &&
+        <nav>
+          <Control navSwitch={() => setNavbar(!showNavbar)} />
+          <LiveList playerSwitch={playerSwitch} playerList={playerList} liveList={liveList} />
         </nav>
       }
-      <div className='container-fluid'>
-        {!showLiveList && <Icons showLiveList={showLiveList} onClick={() => setShowLiveList(!showLiveList)} />}
-        <Players playerList={playerList}/>
-      </div>
+      <Players showNavbar={showNavbar} playerList={playerList} />
+      {!showNavbar && <Open navSwitch={() => setNavbar(!showNavbar)} />}
     </>
   );
 }
