@@ -1,12 +1,12 @@
-import Add from './Add'
-import Setting from './Setting'
+// import Add from './Add'
+// import Setting from './Setting'
 import Close from './Close'
 
 const Control = ({ navSwitch }) => {
   return (
     <div className='control'>
-      <Add />
-      <Setting />
+      {/* <Add /> */}
+      {/* <Setting /> */}
       <Close navSwitch={navSwitch} />
     </div>
   )
