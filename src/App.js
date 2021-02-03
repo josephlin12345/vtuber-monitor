@@ -11,7 +11,7 @@ const App = () => {
   const liveList = useRef([]);
 
   // add or remove player
-  const playerSwitch = (data) => {
+  const playerSwitch = data => {
     // update videoList
     const index = videoList.indexOf(data);
     if(videoList[index].isEnded)
@@ -57,7 +57,7 @@ const App = () => {
             else if(!data.isPlaying)
               liveList.current.splice(liveList.current.indexOf(data), 1);
         });
-        setVideoList(liveList.current);
+        setVideoList(prev => [...liveList.current]);
       } catch(err) {
         console.error(err.message);
       }

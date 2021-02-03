@@ -20,25 +20,28 @@ nav {
 
 .tool {
   position: relative;
+  width: 45px;
+  height: 45px;
 }
 
-.tool .tip {
+.tip {
   visibility: hidden;
-  width: 40px;
   background-color: black;
   color: white;
   text-align: center;
-  padding: 3px;
   border-radius: 10px;
   position: absolute;
   top: 100%;
   left: 50%;
-  margin-left: -20px;
-  z-index: 1;
-  text-align: center;
 }
 
-.tool:hover .tip {
+.tool .tip {
+  width: 40px;
+  padding: 2.5px;
+  margin-left: -22.5px;
+}
+
+.tool:hover .tip, .live:hover .tip {
   visibility: visible;
 }
 
@@ -53,27 +56,30 @@ nav {
 }
 
 .livelist {
-  max-width: calc(100vw - 135px);
+  max-width: calc(100vw - 140px);
   height: 90px;
   display: flex;
-  overflow: hidden;
 }
 
 .live {
-  cursor: pointer;
   margin-left: 5px;
-  height: 90px;
   width: 90px;
   position: relative;
+}
+
+.live .tip {
+  width: 80px;
+  padding: 5px;
+  margin-left: -50px;
 }
 
 .image {
   border: 3px solid #212529;
   border-radius: 50%;
   width: 70px;
-  height: 70px;
   position: absolute;
   top: 7px;
+  cursor: pointer;
 }
 
 .image:hover {
