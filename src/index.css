@@ -16,6 +16,7 @@ nav {
   right: 0px;
   margin: 5px;
   display: flex;
+  z-index: 1;
 }
 
 .tool {
@@ -33,6 +34,7 @@ nav {
   position: absolute;
   top: 100%;
   left: 50%;
+  cursor: default;
 }
 
 .tool .tip {
@@ -77,6 +79,7 @@ nav {
   border: 3px solid #212529;
   border-radius: 50%;
   width: 70px;
+  height: 70px;
   position: absolute;
   top: 7px;
   cursor: pointer;

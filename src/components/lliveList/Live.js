@@ -9,7 +9,7 @@ const Live = ({ data, playerSwitch }) => {
         className='image'
         style={data.isPlaying ? { borderColor: '#ffc107' } : { borderColor: '#212529' }}
       />
-      {data.isEnded && <IoClose className='image' color='red' style={{ borderColor: '#ffc107' }} />}
+      {data.isEnded && <IoClose className='image' color='red' style={{ borderColor: '#ffc107' }} onClick={() => playerSwitch(data)} />}
       <span className='tip'>{data.name}</span>
     </div>
   )

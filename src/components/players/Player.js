@@ -1,12 +1,8 @@
-const Player = ({ vid, width, height }) => {
+import ReactPlayer from 'react-player'
+
+const Player = ({ url, width, height }) => {
   return (
-    <iframe
-      className='player'
-      title='player'
-      src={`https://www.youtube.com/embed/${vid}?enablejsapi=1&modestbranding=1&iv_load_policy=3`}
-      width={width}
-      height={height}
-    />
+    <ReactPlayer controls={true} url={url} width={width} height={height} />
   )
 }
 

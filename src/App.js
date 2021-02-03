@@ -18,13 +18,8 @@ const App = () => {
       videoList.splice(index, 1);
     else
       videoList[index].isPlaying = !videoList[index].isPlaying;
-    const newVideoList = videoList;
-    setVideoList(newVideoList);
-    // update playerList
-    if(playerList.includes(data))
-      setPlayerList(playerList.filter(player => player.vid !== data.vid));
-    else
-      setPlayerList([...playerList, data]);
+    setVideoList(videoList);
+    setPlayerList(videoList.filter(data => data.isPlaying))
   }
 
   // update liveList per 60 seconds
@@ -41,7 +36,7 @@ const App = () => {
             liveList.current.push({
               name: info.channel.name,
               title: info.title,
-              vid: info.yt_video_key,
+              url: `https://www.youtu.be/${info.yt_video_key}`,
               photo: info.channel.photo,
               id: info.id,
               isPlaying: false,
