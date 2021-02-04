@@ -160,7 +160,7 @@ const App = () => {
         }
       }
 
-      setVideoList(prev => [...liveList.current]);
+      setVideoList(liveList.current);
     }
     getLiveList();
     const intervalId = setInterval(getLiveList, 60000);
