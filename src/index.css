@@ -5,9 +5,10 @@ body {
   overflow: hidden;
 }
 
-nav {
+.navbar {
   background-color: #212529;
   height: 90px;
+  display: flex;
 }
 
 .control {
@@ -17,6 +18,28 @@ nav {
   margin: 5px;
   display: flex;
   z-index: 1;
+}
+
+.sidebar {
+  height: 100vh;
+  width: 280px;
+  position: fixed;
+  z-index: 3;
+  background-color: #212529;
+}
+
+.sidebar-icon {
+  margin-left: 10px !important;
+  margin-right: 10px;
+  align-self: center;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.main-sidebar {
+  height: 90px;
+  display: flex;
+  border-bottom: 1px solid red;
 }
 
 .tool {
@@ -58,7 +81,7 @@ nav {
 }
 
 .livelist {
-  max-width: calc(100vw - 140px);
+  max-width: calc(100vw - 200px);
   height: 90px;
   display: flex;
 }
@@ -96,4 +119,23 @@ nav {
 
 .player {
   border: 0px;
+}
+
+.organization-image {
+  margin-top: 10px;
+  width: 200px;
+  height: 50px;
+  cursor: pointer;
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+.organization-image:hover {
+  opacity: 0.3;
+}
+
+.current {
+  width: 200px;
+  height: 50px;
+  align-self: center;
 }

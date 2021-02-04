@@ -1,18 +1,62 @@
-import LiveList from './components/lliveList/LiveList'
+import { useState, useEffect, useRef } from 'react'
+import LiveList from './components/liveList/LiveList'
 import Players from './components/players/Players'
 import Control from './components/control/Control'
-import { useState, useEffect, useRef } from 'react'
 import Open from './components/control/Open'
+import Sidebar from './components/sidebar/Sidebar'
+
+const query = async QUERY => {
+  const graphql = 'https://api.chooks.app/v1';
+  const res = await fetch(graphql, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ query: QUERY })
+  });
+  const jsonData = await res.json();
+  return await jsonData.data;
+}
+
+const organizationsInfo = [
+  {name: 'Hololive', image: 'https://hololive.jetri.co/543a3b13045e7fc3411b70357388d2e5.png'},
+  {name: 'Nijisanji', image: 'https://hololive.jetri.co/1158f60d96fbee3081984add9dfdb33f.png'},
+  {name: 'AniMare', image: 'https://hololive.jetri.co/ca275bd058b943dfeb7b1148426d1578.png'},
+  {name: 'HoneyStrap', image: 'https://hololive.jetri.co/86db37290bbd861a843d41ab07ad4c2f.png'},
+  {name: 'Nori Pro', image: 'https://hololive.jetri.co/b99d4ceafeef87716b067f3ae8ebee3a.png'},
+  {name: 'ReACT', image: 'https://hololive.jetri.co/a976929b51ec52bb36ddf8c37a885248.png'},
+  {name: 'Hanayori Joshiryo', image: 'https://hololive.jetri.co/42f9e13088996a823deaef18ca8c815b.png'}
+  // {name: 'Independents', image: 'https://hololive.jetri.co/0673292ded4afa44a5df09f31f77ac34.png'},
+  // {name: 'SugarLyric', image: ''},
+  // {name: 'VApArt', image: 'https://hololive.jetri.co/1316765173786d5baec9977d83be6c39.png'},
+  // {name: 'ViViD', image: 'https://hololive.jetri.co/24fd989c78b3c5c6092d4c17d2cec7c4.png'},
+  // {name: 'X enc\'ount', image: 'https://hololive.jetri.co/78d0c92376aa08de3aef2c2b37c65f92.png'},
+  // {name: 'Idol-bu', image: ''},
+  // {name: '.LIVE', image: 'https://hololive.jetri.co/85cd3867eb6d5aac74399b9fcbb37776.png'},
+  // {name: 'VOMS', image: 'https://hololive.jetri.co/441c300fbf0f0b510f41cdee556764e0.png'},
+  // {name: 'Atelier Live', image: ''},
+  // {name: 'Chukorara', image: ''},
+  // {name: 'Eilene Family'},
+  // {name: 'Iridori'},
+  // {name: 'Kizuna Ai Inc.'},
+  // {name: 'Marbl_s'},
+  // {name: 'Tsunderia'},
+  // {name: 'V Dimension.Creators'},
+  // {name: 'VShojo'},
+  // {name: 'Yuni Create'},
+  // {name: 'upd8'}
+]
 
 const App = () => {
   const [showNavbar, setNavbar] = useState(true);
   const [playerList, setPlayerList] = useState([]);
   const [videoList, setVideoList] = useState([]);
+  const [currentOrganization, setCurrentOrganization] = useState('Hololive');
   const liveList = useRef([]);
+  // const [otherVideoList, setotherVideoList] = useState([]);
+  const channelsList = useRef(new Set());
 
   // add or remove player
   const playerSwitch = data => {
-    // update videoList
+    // update videoList and playerList
     const index = videoList.indexOf(data);
     if(videoList[index].isEnded)
       videoList.splice(index, 1);
@@ -25,37 +69,98 @@ const App = () => {
   // update liveList per 60 seconds
   useEffect(() => {
     const getLiveList = async () => {
-      const url = 'https://api.holotools.app/v1/live?max_upcoming_hours=2190&hide_channel_desc=1';
-      try {
-        const res = await fetch(url);
-        const jsonData = await res.json();
-        // add new live
-        const prevLiveIdList = liveList.current.map(data => data.id);
-        jsonData.live.forEach(info => {
-          if(!prevLiveIdList.includes(info.id))
-            liveList.current.push({
-              name: info.channel.name,
-              title: info.title,
-              url: `https://www.youtu.be/${info.yt_video_key}`,
-              photo: info.channel.photo,
-              id: info.id,
-              isPlaying: false,
-              isEnded: false
-            });
-        });
-        // remove ended live
-        const endedLiveList = jsonData.ended.map(info => info.id);
-        liveList.current.forEach(data => {
-          if(endedLiveList.includes(data.id))
-            if(data.isPlaying)
-              data.isEnded = true;
-            else if(!data.isPlaying)
-              liveList.current.splice(liveList.current.indexOf(data), 1);
-        });
-        setVideoList(prev => [...liveList.current]);
-      } catch(err) {
-        console.error(err.message);
+      // query live
+      const liveQuery = `query {
+        live(organizations: [${organizationsInfo.map(organization => `"${organization.name}"`).join(', ')}]) {
+          _id,
+          channel_id,
+          status,
+          organization,
+          title,
+          time{
+            start,
+            scheduled
+          }
+        }
+      }`
+      const newLive = await query(liveQuery);
+
+      // add new live
+      const prevLiveIdList = liveList.current.map(data => data._id);
+      const newChannels = [];
+      newLive.live.forEach(data => {
+        if(!prevLiveIdList.includes(data._id)) {
+          liveList.current.push({
+            ...data,
+            url: `https://youtu.be/${data._id}`,
+            isPlaying: false,
+            isEnded: false
+          });
+          newChannels.push(`"${data.channel_id}"`);
+        }
+      });
+
+      // remove ended live
+      const newLiveIdList = newLive.live.map(data => data._id);
+      liveList.current.forEach(live => {
+        if(!newLiveIdList.includes(live._id))
+          if(live.isPlaying)
+            live.isEnded = true;
+          else {
+            const index = liveList.current.indexOf(live);
+            liveList.current.splice(index, 1);
+          }
+      })
+
+      // query channels
+      if(newChannels.length !== 0) {
+        const channelsQuery = `query {
+          channels(channel_id: [${newChannels.join(', ')}]) {
+            items {
+              name {
+                en,
+                jp,
+                kr,
+                cn
+              },
+              organization,
+              channel_name,
+              channel_id,
+              thumbnail
+            },
+            next_page_token
+          }
+        }`
+        const channels = await query(channelsQuery);
+        channelsList.current = new Set([...channelsList.current, ...channels.channels.items])
+  
+        // query next channels
+        let next_page_token = channels.channels.next_page_token;
+        while(next_page_token) {
+          const nextChannelsQuery = `query {
+            channels(page_token: "${next_page_token}") {
+              items {
+                name {
+                  en,
+                  jp,
+                  kr,
+                  cn
+                },
+                organization,
+                channel_name,
+                channel_id,
+                thumbnail
+              },
+              next_page_token
+            }
+          }`
+          const nextChannels = await query(nextChannelsQuery);
+          channelsList.current = new Set([...channelsList.current, ...nextChannels.channels.items])
+          next_page_token = nextChannels.channels.next_page_token
+        }
       }
+
+      setVideoList(prev => [...liveList.current]);
     }
     getLiveList();
     const intervalId = setInterval(getLiveList, 60000);
@@ -65,9 +170,19 @@ const App = () => {
   return (
     <>
       {showNavbar &&
-        <nav>
+        <nav className='navbar'>
           <Control navSwitch={() => setNavbar(!showNavbar)} />
-          <LiveList playerSwitch={playerSwitch} videoList={videoList} />
+          <Sidebar
+            organizationsInfo={organizationsInfo}
+            setCurrentOrganization={setCurrentOrganization}
+            currentOrganization={currentOrganization}
+          />
+          <LiveList
+            playerSwitch={playerSwitch}
+            videoList={videoList}
+            channelsList={channelsList.current}
+            currentOrganization={currentOrganization}
+          />
         </nav>
       }
       <Players showNavbar={showNavbar} playerList={playerList} />

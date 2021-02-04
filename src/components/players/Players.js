@@ -50,7 +50,7 @@ const Players = ({ showNavbar, playerList }) => {
         gridTemplateColumns: `repeat(${gridColunms}, 1fr)`
       }}
     >
-      {playerList.map(data => (<Player key={data.id} url={data.url} height={playerHeight} width={playerWidth} />))}
+      {playerList.map(data => (<Player key={data._id} url={data.url} height={playerHeight} width={playerWidth} />))}
     </div>
   )
 }
