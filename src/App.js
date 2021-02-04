@@ -62,6 +62,7 @@ const App = () => {
       videoList.splice(index, 1);
     else
       videoList[index].isPlaying = !videoList[index].isPlaying;
+    liveList.current = videoList;
     setVideoList(videoList);
     setPlayerList(videoList.filter(data => data.isPlaying))
   }
@@ -160,7 +161,7 @@ const App = () => {
         }
       }
 
-      setVideoList(liveList.current);
+      setVideoList([...liveList.current]);
     }
     getLiveList();
     const intervalId = setInterval(getLiveList, 60000);
