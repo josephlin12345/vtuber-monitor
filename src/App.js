@@ -19,19 +19,20 @@ const query = async QUERY => {
 const organizationsInfo = [
   {name: 'Hololive', image: 'https://hololive.jetri.co/543a3b13045e7fc3411b70357388d2e5.png'},
   {name: 'Nijisanji', image: 'https://hololive.jetri.co/1158f60d96fbee3081984add9dfdb33f.png'},
-  {name: 'AniMare', image: 'https://hololive.jetri.co/ca275bd058b943dfeb7b1148426d1578.png'},
-  {name: 'HoneyStrap', image: 'https://hololive.jetri.co/86db37290bbd861a843d41ab07ad4c2f.png'},
+  // {name: 'AniMare', image: 'https://hololive.jetri.co/ca275bd058b943dfeb7b1148426d1578.png'},
+  // {name: 'Hanayori Joshiryo', image: 'https://hololive.jetri.co/42f9e13088996a823deaef18ca8c815b.png'},
+  // {name: 'HoneyStrap', image: 'https://hololive.jetri.co/86db37290bbd861a843d41ab07ad4c2f.png'},
   {name: 'Nori Pro', image: 'https://hololive.jetri.co/b99d4ceafeef87716b067f3ae8ebee3a.png'},
   {name: 'ReACT', image: 'https://hololive.jetri.co/a976929b51ec52bb36ddf8c37a885248.png'},
-  {name: 'Hanayori Joshiryo', image: 'https://hololive.jetri.co/42f9e13088996a823deaef18ca8c815b.png'}
-  // {name: 'Independents', image: 'https://hololive.jetri.co/0673292ded4afa44a5df09f31f77ac34.png'},
   // {name: 'SugarLyric', image: ''},
   // {name: 'VApArt', image: 'https://hololive.jetri.co/1316765173786d5baec9977d83be6c39.png'},
   // {name: 'ViViD', image: 'https://hololive.jetri.co/24fd989c78b3c5c6092d4c17d2cec7c4.png'},
   // {name: 'X enc\'ount', image: 'https://hololive.jetri.co/78d0c92376aa08de3aef2c2b37c65f92.png'},
   // {name: 'Idol-bu', image: ''},
-  // {name: '.LIVE', image: 'https://hololive.jetri.co/85cd3867eb6d5aac74399b9fcbb37776.png'},
   // {name: 'VOMS', image: 'https://hololive.jetri.co/441c300fbf0f0b510f41cdee556764e0.png'},
+  {name: 'Independents', image: 'https://hololive.jetri.co/0673292ded4afa44a5df09f31f77ac34.png'},
+  // {name: '.LIVE', image: 'https://hololive.jetri.co/85cd3867eb6d5aac74399b9fcbb37776.png'},
+
   // {name: 'Atelier Live', image: ''},
   // {name: 'Chukorara', image: ''},
   // {name: 'Eilene Family'},
@@ -64,7 +65,7 @@ const App = () => {
       videoList[index].isPlaying = !videoList[index].isPlaying;
     liveList.current = videoList;
     setVideoList(videoList);
-    setPlayerList(videoList.filter(data => data.isPlaying))
+    setPlayerList(videoList.filter(data => data.isPlaying));
   }
 
   // update liveList per 60 seconds
@@ -192,4 +193,4 @@ const App = () => {
   );
 }
 
-export default App;
+export default App

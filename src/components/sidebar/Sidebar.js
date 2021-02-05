@@ -7,21 +7,26 @@ const Sidebar = ({ organizationsInfo, currentOrganization, setCurrentOrganizatio
   const [current] = organizationsInfo.filter(organization => organization.name === currentOrganization);
   return (
     <>
-      {showSidebar ?
-        <>
-          <IoClose className='sidebar-icon tool-icon' onClick={() => setShowSidebar(!showSidebar)} />
-          <div className='sidebar'>
-            {organizationsInfo.map(organization => (
-              <Organization
-                key={organization.name}
-                image={organization.image}
-                style={current === organization ? { backgroundColor: '#302020' } : {}}
-                setOrganization={() => setCurrentOrganization(organization.name)}
-              />
-            ))}
-          </div>
-        </> :
-        <IoMenuOutline className='sidebar-icon tool-icon' onClick={() => setShowSidebar(!showSidebar)} />
+      <div className='sidebar-icon-contianer'>
+        <div className='tool'>
+          {showSidebar ?
+            <IoClose className='tool-icon' onClick={() => setShowSidebar(!showSidebar)} /> :
+            <IoMenuOutline className='tool-icon' onClick={() => setShowSidebar(!showSidebar)} />
+          }
+          <span className='tip'>menu</span>
+        </div>
+      </div>
+      {showSidebar &&
+        <div className='sidebar'>
+          {organizationsInfo.map(organization => (
+            <Organization
+              key={organization.name}
+              image={organization.image}
+              style={current === organization ? { backgroundColor: '#302020' } : {}}
+              setOrganization={() => setCurrentOrganization(organization.name)}
+            />
+          ))}
+        </div>
       }
     </>
   )

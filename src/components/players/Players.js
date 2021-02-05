@@ -43,7 +43,7 @@ const Players = ({ showNavbar, playerList }) => {
   const [playerWidth, playerHeight, gridColunms] = useSize();
 
   return (
-    <div className='players'
+    <div className='player-container'
       style={{
         height: playersHeight,
         maxHeight: playersHeight,

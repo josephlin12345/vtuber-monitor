@@ -1,6 +1,5 @@
 body {
   margin: 0px;
-  height: 100vh;
   background-color: #424242;
   overflow: hidden;
 }
@@ -16,30 +15,36 @@ body {
   top: 0px;
   right: 0px;
   margin: 5px;
-  display: flex;
+  height: 80px;
+  display: grid;
+  grid-auto-flow: column;
+  column-gap: 5px;
 }
 
-.sidebar-icon {
-  margin-left: 10px !important;
+.sidebar-icon-contianer {
+  width: 40px;
+  margin-left: 10px;
   margin-right: 10px;
   align-self: center;
-  cursor: pointer;
 }
 
 .sidebar {
   border-top: 1px solid red;
-  height: 100vh;
+  height: calc(100vh - 90px);
   width: 280px;
-  max-height: calc(100vh - 90px);
   overflow-x: hidden;
   overflow-y: auto;
   position: fixed;
   background-color: #212529;
   margin-top: 90px;
+  display: grid;
+  grid-auto-flow: row;
+  grid-template-rows: repeat(auto-fit, 70px);
 }
 
 ::-webkit-scrollbar {
   width: 10px;
+  height: 5px;
 }
 ::-webkit-scrollbar-thumb {
   -webkit-border-radius: 4px;
@@ -49,8 +54,8 @@ body {
 
 .tool {
   position: relative;
-  width: 45px;
-  height: 45px;
+  width: 40px;
+  height: 40px;
 }
 
 .tip {
@@ -82,17 +87,18 @@ body {
   height: 40px;
   background: #424242;
   border-radius: 20%;
-  margin-left: 3px;
 }
 
 .livelist {
   max-width: calc(100vw - 200px);
+  width: calc(100vw - 200px);
   height: 90px;
   display: flex;
+  overflow-x: scroll;
+  overflow-y: hidden;
 }
 
 .live {
-  margin-left: 5px;
   width: 90px;
   position: relative;
 }
@@ -100,7 +106,7 @@ body {
 .live .tip {
   width: 80px;
   padding: 5px;
-  margin-left: -50px;
+  margin-left: -45px;
 }
 
 .image {
@@ -109,15 +115,16 @@ body {
   width: 70px;
   height: 70px;
   position: absolute;
-  top: 7px;
   cursor: pointer;
+  margin-left: 7px;
+  margin-top: 7px;
 }
 
 .image:hover {
   box-shadow: 0 0 1em red;
 }
 
-.players {
+.player-container {
   display: grid;
   padding: 5px;
 }
@@ -127,33 +134,30 @@ body {
 }
 
 .organization-image-container {
+  height: 70px;
   width: 270px;
-  height: 80px;
   cursor: pointer;
 }
 
 .organization-image {
-  margin-top: 20px;
-  margin-left: 35px;
+  position: relative;
 }
 
 .organization-image:hover {
   opacity: 0.3;
 }
 
-.current {
-  width: 200px;
-  height: 50px;
-  align-self: center;
-}
-
-/* .modal {
-  width: 50vw;
-  height: 50vh;
+.center {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.modal {
+  width: 50vw;
+  height: 50vh;
   position: absolute;
   background-color: #8b8181;
   box-shadow: 0 0 1em red;
-} */
+  border-radius: 10px;
+}
