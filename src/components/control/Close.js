@@ -1,9 +1,9 @@
 import { IoChevronUpOutline } from 'react-icons/io5'
 
-const Close = ({ navSwitch }) => {
+const Close = ({ navbarSwitch }) => {
   return (
     <div className='tool'>
-      <IoChevronUpOutline className='tool-icon' onClick={navSwitch} />
+      <IoChevronUpOutline className='tool-icon' onClick={navbarSwitch} />
       <span className='tip'>close</span>
     </div>
   )

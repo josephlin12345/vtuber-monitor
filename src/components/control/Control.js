@@ -1,20 +1,17 @@
-// import Add from './Add'
-// import Setting from './Setting'
+import Add from './Add'
+import Setting from './Setting'
 import Close from './Close'
-// import { useState } from 'react'
-// import Modal from 'react-modal'
+import Modal from 'react-modal'
 
-// Modal.setAppElement('#root');
-// Modal.defaultStyles.overlay.backgroundColor = '#1a1515bf';
+Modal.setAppElement('#root');
+Modal.defaultStyles.overlay.backgroundColor = '#1a1515bf';
 
-const Control = ({ navSwitch }) => {
-  // const [showAdd, setShowAdd] = useState(false);
-  // const [showSetting, setShowSetting] = useState(false);
+const Control = ({ navbarSwitch, addOtherVideo, playerList, channelList, playerSwitch }) => {
   return (
     <div className='control'>
-      {/* <Add showAdd={showAdd} setShowAdd={setShowAdd} />
-      <Setting showSetting={showSetting} /> */}
-      <Close navSwitch={navSwitch} />
+      <Add addOtherVideo={addOtherVideo} />
+      <Setting playerList={playerList} channelList={channelList} playerSwitch={playerSwitch} />
+      <Close navbarSwitch={navbarSwitch} />
     </div>
   )
 }

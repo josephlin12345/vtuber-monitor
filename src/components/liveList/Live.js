@@ -5,11 +5,11 @@ const Live = ({ data, channel, playerSwitch }) => {
     <div className='live'>
       <img src={channel.thumbnail}
         alt=''
-        onClick={() => playerSwitch(data)}
         className='image'
+        onClick={() => playerSwitch(data, channel)}
         style={data.isPlaying ? { borderColor: '#ffc107' } : { borderColor: '#212529' }}
       />
-      {data.isEnded && <IoClose className='image' color='red' style={{ borderColor: '#ffc107' }} onClick={() => playerSwitch(data)} />}
+      {data.isEnded && <IoClose className='image' color='red' style={{ borderColor: '#ffc107' }} onClick={() => playerSwitch(data, channel)} />}
       <span className='tip'>{channel.channel_name}</span>
     </div>
   )

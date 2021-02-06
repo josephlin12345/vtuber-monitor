@@ -1,7 +1,7 @@
 import Player from './Player'
 import { useState, useEffect } from 'react'
 
-const Players = ({ showNavbar, playerList }) => {
+const PlayerGrid = ({ showNavbar, playerList }) => {
   // calculate size
   const useSize = () => {
     const [size, setSize] = useState([0, 0, 0]);
@@ -39,14 +39,13 @@ const Players = ({ showNavbar, playerList }) => {
     return size;
   }
 
-  const playersHeight = showNavbar ? 'calc(100vh - 100px)' : 'calc(100vh - 10px)';
+  const gridHeight = showNavbar ? 'calc(100vh - 100px)' : 'calc(100vh - 10px)';
   const [playerWidth, playerHeight, gridColunms] = useSize();
-
   return (
     <div className='player-container'
       style={{
-        height: playersHeight,
-        maxHeight: playersHeight,
+        height: gridHeight,
+        maxHeight: gridHeight,
         gridTemplateColumns: `repeat(${gridColunms}, 1fr)`
       }}
     >
@@ -55,4 +54,4 @@ const Players = ({ showNavbar, playerList }) => {
   )
 }
 
-export default Players
+export default PlayerGrid

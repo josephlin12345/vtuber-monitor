@@ -1,7 +1,7 @@
 import Live from './Live'
 
-const LiveList = ({ playerSwitch, videoList, channelsList, currentOrganization }) => {
-  const channels = Array.from(channelsList.values());
+const LiveList = ({ playerSwitch, videoList, channelList, currentOrganization }) => {
+  const channels = [...channelList.values()];
   const filteredVideoList = videoList.filter(data => data.organization === currentOrganization);
   return (
     <div className='livelist'>

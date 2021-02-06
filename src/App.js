@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import LiveList from './components/liveList/LiveList'
-import Players from './components/players/Players'
+import PlayerGrid from './components/players/PlayerGrid'
 import Control from './components/control/Control'
 import Open from './components/control/Open'
 import Sidebar from './components/sidebar/Sidebar'
@@ -52,20 +52,42 @@ const App = () => {
   const [videoList, setVideoList] = useState([]);
   const [currentOrganization, setCurrentOrganization] = useState('Hololive');
   const liveList = useRef([]);
-  // const [otherVideoList, setotherVideoList] = useState([]);
-  const channelsList = useRef(new Set());
+  const channelList = useRef(new Set([{
+    channel_id: 'default',
+    thumbnail: 'https://www.gstatic.com/youtube/img/branding/favicon/favicon_144x144.png',
+    name: {
+      jp: 'Youtube'
+    }
+  }]));
 
-  // add or remove player
-  const playerSwitch = data => {
-    // update videoList and playerList
-    const index = videoList.indexOf(data);
-    if(videoList[index].isEnded)
-      videoList.splice(index, 1);
-    else
-      videoList[index].isPlaying = !videoList[index].isPlaying;
+  // update lists
+  const updateLists = videoList => {
     liveList.current = videoList;
     setVideoList(videoList);
     setPlayerList(videoList.filter(data => data.isPlaying));
+  }
+
+  // add or remove player
+  const playerSwitch = (data, channel) => {
+    // update videoList and playerList
+    const index = videoList.indexOf(data);
+    if(videoList[index].isEnded || channel.channel_id === 'default')
+      videoList.splice(index, 1);
+    else
+      videoList[index].isPlaying = !videoList[index].isPlaying;
+    updateLists(videoList);
+  }
+
+  // add other video and filter them
+  const addOtherVideo = video => {
+    for(const data of videoList)
+      if(data._id === video._id) {
+        data.isPlaying = true;
+        updateLists(videoList);
+        return
+      }
+    videoList.push(video);
+    updateLists(videoList);
   }
 
   // update liveList per 60 seconds
@@ -134,7 +156,7 @@ const App = () => {
           }
         }`
         const channels = await query(channelsQuery);
-        channelsList.current = new Set([...channelsList.current, ...channels.channels.items])
+        channelList.current = new Set([...channelList.current, ...channels.channels.items])
   
         // query next channels
         let next_page_token = channels.channels.next_page_token;
@@ -157,7 +179,7 @@ const App = () => {
             }
           }`
           const nextChannels = await query(nextChannelsQuery);
-          channelsList.current = new Set([...channelsList.current, ...nextChannels.channels.items])
+          channelList.current = new Set([...channelList.current, ...nextChannels.channels.items])
           next_page_token = nextChannels.channels.next_page_token
         }
       }
@@ -173,7 +195,13 @@ const App = () => {
     <>
       {showNavbar &&
         <nav className='navbar'>
-          <Control navSwitch={() => setNavbar(!showNavbar)} />
+          <Control
+            navbarSwitch={() => setNavbar(!showNavbar)}
+            addOtherVideo={addOtherVideo}
+            playerList={playerList}
+            channelList={channelList.current}
+            playerSwitch={playerSwitch}
+          />
           <Sidebar
             organizationsInfo={organizationsInfo}
             setCurrentOrganization={setCurrentOrganization}
@@ -182,13 +210,13 @@ const App = () => {
           <LiveList
             playerSwitch={playerSwitch}
             videoList={videoList}
-            channelsList={channelsList.current}
+            channelList={channelList.current}
             currentOrganization={currentOrganization}
           />
         </nav>
       }
-      <Players showNavbar={showNavbar} playerList={playerList} />
-      {!showNavbar && <Open navSwitch={() => setNavbar(!showNavbar)} />}
+      <PlayerGrid showNavbar={showNavbar} playerList={playerList} />
+      {!showNavbar && <Open navbarSwitch={() => setNavbar(!showNavbar)} />}
     </>
   );
 }
