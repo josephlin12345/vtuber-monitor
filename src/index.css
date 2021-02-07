@@ -193,6 +193,7 @@ body {
 
 .btn-enable {
   color: #40c4ff;
+  opacity: 1;
   cursor: pointer;
 }
 
@@ -223,6 +224,7 @@ body {
 
 .item-move {
   cursor: move;
+  min-width: 40px;
 }
 
 .item-icon {
@@ -232,6 +234,6 @@ body {
 }
 
 .item-text {
-  font-size: larger;
+  font-size: medium;
   color: gray;
 }

@@ -64,7 +64,9 @@ const App = () => {
   const updateLists = videoList => {
     liveList.current = videoList;
     setVideoList(videoList);
-    setPlayerList(videoList.filter(data => data.isPlaying));
+    const newPlayerList = videoList.filter(data => data.isPlaying);
+    const newPlayer = newPlayerList.filter(data => !playerList.includes(data));
+    setPlayerList([...playerList.filter(data => newPlayerList.includes(data)), ...newPlayer]);
   }
 
   // add or remove player
@@ -201,6 +203,7 @@ const App = () => {
             playerList={playerList}
             channelList={channelList.current}
             playerSwitch={playerSwitch}
+            setPlayerList={setPlayerList}
           />
           <Sidebar
             organizationsInfo={organizationsInfo}

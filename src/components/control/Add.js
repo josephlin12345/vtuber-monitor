@@ -1,13 +1,13 @@
 import { IoAddSharp, IoLink, IoArrowForwardCircle, IoClose } from 'react-icons/io5'
 import Modal from 'react-modal'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 
 const MATCH_URL_YOUTUBE = /(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})|youtube\.com\/playlist\?list=|youtube\.com\/user\//;
 
 const Add = ({ addOtherVideo }) => {
   const getLink = () => {
     if(document.querySelector('.form-btn').classList.contains('btn-enable')) {
-      const url = document.getElementById('link').value;
+      const url = input.current.value;
       const video = {
         _id: getId(url),
         url: url,
@@ -22,7 +22,7 @@ const Add = ({ addOtherVideo }) => {
   }
 
   const validation = () => {
-    if(getId(document.getElementById('link').value))
+    if(getId(input.current.value))
       document.querySelector('.form-btn').classList.add('btn-enable');
     else
       document.querySelector('.form-btn').classList.remove('btn-enable');
@@ -33,6 +33,7 @@ const Add = ({ addOtherVideo }) => {
     return match ? match[1] : false;
   }
 
+  const input = useRef();
   const [showAdd, setShowAdd] = useState(false);
   return (
     <div className='tool'>
@@ -42,7 +43,7 @@ const Add = ({ addOtherVideo }) => {
         <div className='form center'>
           <IoClose className='tool close' onClick={() => setShowAdd(false)} />
           <IoLink className='tool' />
-          <input id='link' className='form-text' type='text' placeholder='Youtube Link' onInput={validation} autoFocus />
+          <input ref={input} className='form-text' type='text' placeholder='Youtube Link' onInput={validation} autoFocus />
           <IoArrowForwardCircle className='tool form-btn' onClick={getLink} />
         </div>
       </Modal>
