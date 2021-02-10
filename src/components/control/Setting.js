@@ -35,7 +35,6 @@ const Setting = ({ playerList, channelList, playerSwitch, setPlayerList }) => {
                 data={data}
                 index={playerList.indexOf(data)}
                 playerSwitch={playerSwitch}
-                change={change}
                 setChange={setChange}
               />
             ))}

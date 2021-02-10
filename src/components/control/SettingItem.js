@@ -1,7 +1,7 @@
 import { IoClose, IoReorderTwo } from 'react-icons/io5'
 import { useState } from 'react'
 
-const SettingItem = ({ channel, data, index, playerSwitch, change, setChange }) => {
+const SettingItem = ({ channel, data, index, playerSwitch, setChange }) => {
   const [dragging, setDragging] = useState(false);
   return (
     <div className='item-container'
@@ -16,7 +16,7 @@ const SettingItem = ({ channel, data, index, playerSwitch, change, setChange }) 
     >
       <IoReorderTwo className='tool item-move' />
       <img className='item-icon' alt='' src={channel.thumbnail} />
-      <span className=' item-text'>{channel.name.jp}</span>
+      <span className=' item-text'>{channel.name ? channel.name.jp : data._id}</span>
       <IoClose className='tool close' onClick={() => playerSwitch(data, channel)} />
     </div>
   )

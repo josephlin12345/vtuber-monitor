@@ -201,6 +201,7 @@ body {
   color: red;
   margin-left: auto;
   cursor: pointer;
+  min-width: 40px;
 }
 
 .player-control-panel {
