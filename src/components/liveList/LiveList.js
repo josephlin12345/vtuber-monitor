@@ -1,7 +1,6 @@
 import Live from './Live'
 
-const LiveList = ({ playerSwitch, videoList, channelList, currentOrganization }) => {
-  const channels = [...channelList.values()];
+const LiveList = ({ playerSwitch, videoList, currentOrganization }) => {
   const filteredVideoList = videoList.filter(data => data.organization === currentOrganization);
   return (
     <div className='livelist'>
@@ -10,7 +9,6 @@ const LiveList = ({ playerSwitch, videoList, channelList, currentOrganization })
           key={data._id}
           data={data}
           playerSwitch={playerSwitch}
-          channel={channels.find(channel => channel.channel_id === data.channel_id)}
         />
       ))}
     </div>

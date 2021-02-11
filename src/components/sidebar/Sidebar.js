@@ -4,7 +4,6 @@ import Organization from './Organization'
 
 const Sidebar = ({ organizationsInfo, currentOrganization, setCurrentOrganization }) => {
   const [showSidebar, setShowSidebar] = useState(false);
-  const [current] = organizationsInfo.filter(organization => organization.name === currentOrganization);
   return (
     <>
       <div className='sidebar-icon-contianer'>
@@ -22,7 +21,7 @@ const Sidebar = ({ organizationsInfo, currentOrganization, setCurrentOrganizatio
             <Organization
               key={organization.name}
               image={organization.image}
-              style={current === organization ? { backgroundColor: '#302020' } : {}}
+              style={currentOrganization === organization.name ? { backgroundColor: '#302020' } : {}}
               setOrganization={() => setCurrentOrganization(organization.name)}
             />
           ))}

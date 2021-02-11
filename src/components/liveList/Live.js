@@ -1,16 +1,16 @@
 import { IoClose } from 'react-icons/io5'
 
-const Live = ({ data, channel, playerSwitch }) => {
+const Live = ({ data, playerSwitch }) => {
   return (
     <div className='live'>
-      <img src={channel.thumbnail}
+      <img src={data.channel.thumbnail}
         alt=''
         className='image'
-        onClick={() => playerSwitch(data, channel)}
+        onClick={() => playerSwitch(data)}
         style={data.isPlaying ? { borderColor: '#ffc107' } : { borderColor: '#212529' }}
       />
-      {data.isEnded && <IoClose className='image' color='red' style={{ borderColor: '#ffc107' }} onClick={() => playerSwitch(data, channel)} />}
-      <span className='tip'>{channel.channel_name}</span>
+      {data.isEnded && <IoClose className='image' color='red' style={{ borderColor: '#ffc107' }} onClick={() => playerSwitch(data)} />}
+      <span className='tip'>{data.name}</span>
     </div>
   )
 }

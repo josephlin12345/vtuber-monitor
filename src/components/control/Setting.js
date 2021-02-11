@@ -3,9 +3,8 @@ import Modal from 'react-modal'
 import { useState } from 'react'
 import SettingItem from './SettingItem'
 
-const Setting = ({ playerList, channelList, playerSwitch, setPlayerList }) => {
+const Setting = ({ playerList, playerSwitch, setPlayerList }) => {
   const [showSetting, setShowSetting] = useState(false);
-  const channels = [...channelList.values()];
   const [change, setChange] = useState([null, null]);
 
   const changeOrder = (start, end) => {
@@ -16,8 +15,8 @@ const Setting = ({ playerList, channelList, playerSwitch, setPlayerList }) => {
   }
 
   if(change[0] !== null && change[1] !== null) {
-    setChange(prev => [prev[1], null])
     changeOrder(change[0], change[1])
+    setChange(prev => [prev[1], null])
   }
 
   return (
@@ -31,7 +30,6 @@ const Setting = ({ playerList, channelList, playerSwitch, setPlayerList }) => {
             {playerList.map(data => (
               <SettingItem
                 key={data._id}
-                channel={channels.find(channel => channel.channel_id === data.channel_id)}
                 data={data}
                 index={playerList.indexOf(data)}
                 playerSwitch={playerSwitch}

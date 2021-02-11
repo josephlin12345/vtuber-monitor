@@ -11,10 +11,17 @@ const Add = ({ addOtherVideo }) => {
       const video = {
         _id: getId(url),
         url: url,
+        title: '',
+        name: '',
         organization: 'youtube',
+        thumbnail: '',
         isPlaying: true,
         isEnded: false,
-        channel_id: 'default'
+        channel: {
+          _id: '',
+          thumbnail: 'https://www.gstatic.com/youtube/img/branding/favicon/favicon_144x144.png',
+          banner: ''
+        }
       }
       addOtherVideo(video);
       setShowAdd(false);
