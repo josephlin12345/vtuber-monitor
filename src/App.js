@@ -77,8 +77,27 @@ const App = () => {
   useEffect(() => {
     const getLiveList = async () => {
       // query live
-      const res = await fetch('https://mongodb-channel-and-live.herokuapp.com/');
-      const newLive = await res.json();
+      const QUERY = `{
+        live {
+          _id,
+          url,
+          title,
+          thumbnail,
+          channel_id,
+          channel_name,
+          channel_thumbnail,
+          organization
+        }
+      }`
+      const graphql = 'https://mongodb-channel-and-live.herokuapp.com/';
+      const res = await fetch(graphql, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query: QUERY })
+      });
+      const jsonData = await res.json();
+      const newLive = jsonData.data.live;
+      console.log(newLive);
 
       // add new live
       const prevLiveIdList = liveList.current.map(data => data._id);
