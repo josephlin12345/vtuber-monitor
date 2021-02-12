@@ -97,7 +97,6 @@ const App = () => {
       });
       const jsonData = await res.json();
       const newLive = jsonData.data.live;
-      console.log(newLive);
 
       // add new live
       const prevLiveIdList = liveList.current.map(data => data._id);
