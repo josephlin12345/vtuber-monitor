@@ -29,7 +29,6 @@ body {
 }
 
 .sidebar {
-  border-top: 1px solid red;
   height: calc(100vh - 90px);
   width: 280px;
   overflow-x: hidden;
@@ -39,6 +38,7 @@ body {
   margin-top: 90px;
   display: grid;
   grid-template-rows: repeat(auto-fit, 70px);
+  outline: none;
 }
 
 ::-webkit-scrollbar {

@@ -18,7 +18,7 @@ const Add = ({ addOtherVideo }) => {
         channel_thumbnail: 'https://www.gstatic.com/youtube/img/branding/favicon/favicon_144x144.png',
         organization: 'youtube',
         isPlaying: true,
-        isEnded: false,
+        isEnded: true,
       }
       addOtherVideo(video);
       setShowAdd(false);

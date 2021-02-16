@@ -1,6 +1,6 @@
 import { IoSettingsSharp, IoClose } from 'react-icons/io5'
 import Modal from 'react-modal'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import SettingItem from './SettingItem'
 
 const Setting = ({ playerList, playerSwitch, setPlayerList }) => {
@@ -14,10 +14,13 @@ const Setting = ({ playerList, playerSwitch, setPlayerList }) => {
     setPlayerList([...playerList]);
   }
 
-  if(change[0] !== null && change[1] !== null) {
-    changeOrder(change[0], change[1])
-    setChange(prev => [prev[1], null])
-  }
+  useEffect(() => {
+    if(change[0] !== null && change[1] !== null) {
+      changeOrder(change[0], change[1])
+      setChange(prev => [prev[1], null])
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [change])
 
   return (
     <div className='tool'>

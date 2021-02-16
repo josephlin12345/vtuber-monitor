@@ -15,8 +15,8 @@ const SettingItem = ({ data, index, playerSwitch, setChange }) => {
       onDragEnd={() => setDragging(false)}
     >
       <IoReorderTwo className='tool item-move' />
-      <img className='item-icon' alt='' src={data.channel_thumbnail} />
-      <span className=' item-text'>{data.channel_name ? data.channel_name : data._id}</span>
+      <img className='item-icon' alt='' src={data.channel.avatar} />
+      <span className=' item-text'>{data.channel.name ? data.channel.name : data._id}</span>
       <IoClose className='tool close' onClick={() => playerSwitch(data)} />
     </div>
   )

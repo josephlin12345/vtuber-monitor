@@ -1,6 +1,7 @@
 import { IoMenuOutline, IoClose } from 'react-icons/io5'
 import { useState } from 'react'
 import Organization from './Organization'
+import Modal from 'react-modal'
 
 const Sidebar = ({ organizationsInfo, currentOrganization, setCurrentOrganization }) => {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -16,7 +17,7 @@ const Sidebar = ({ organizationsInfo, currentOrganization, setCurrentOrganizatio
         </div>
       </div>
       {showSidebar &&
-        <div className='sidebar'>
+        <Modal className='sidebar' isOpen={showSidebar} onRequestClose={() => setShowSidebar(false)}>
           {organizationsInfo.map(organization => (
             <Organization
               key={organization.name}
@@ -25,7 +26,7 @@ const Sidebar = ({ organizationsInfo, currentOrganization, setCurrentOrganizatio
               setOrganization={() => setCurrentOrganization(organization.name)}
             />
           ))}
-        </div>
+        </Modal>
       }
     </>
   )

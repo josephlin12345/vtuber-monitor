@@ -41,36 +41,35 @@ const App = () => {
   const [currentOrganization, setCurrentOrganization] = useState('Hololive');
   const liveList = useRef([]);
 
-  // update lists
-  const updateLists = videoList => {
-    liveList.current = videoList;
-    setVideoList(videoList);
-    const newPlayerList = videoList.filter(data => data.isPlaying);
-    const newPlayer = newPlayerList.filter(data => !playerList.includes(data));
-    setPlayerList([...playerList.filter(data => newPlayerList.includes(data)), ...newPlayer]);
-  }
-
   // add or remove player
   const playerSwitch = data => {
     // update videoList and playerList
-    const index = videoList.indexOf(data);
-    if(videoList[index].isEnded || data.organization === 'youtube')
-      videoList.splice(index, 1);
-    else
-      videoList[index].isPlaying = !videoList[index].isPlaying;
-    updateLists(videoList);
+    if(data.isEnded) {
+      videoList.splice(videoList.indexOf(data), 1);
+      setPlayerList(prev => prev.filter(player => player !== data));
+    }
+    else {
+      data.isPlaying = !data.isPlaying;
+      if(data.isPlaying)
+        setPlayerList(prev => [...prev, data]);
+      else
+        setPlayerList(prev => prev.filter(player => player !== data));
+    }
   }
 
   // add other video and filter them
   const addOtherVideo = video => {
-    for(const data of videoList)
-      if(data._id === video._id) {
+    const data = videoList.find(data => data._id === video._id);
+    if(data) {
+      if(!data.isPlaying) {
         data.isPlaying = true;
-        updateLists(videoList);
-        return
+        setPlayerList(prev => [...prev, data]);
       }
-    videoList.push(video);
-    updateLists(videoList);
+    }
+    else {
+      videoList.push(video);
+      setPlayerList(prev => [...prev, video]);
+    }
   }
 
   // update liveList per 60 seconds
@@ -78,25 +77,26 @@ const App = () => {
     const getLiveList = async () => {
       // query live
       const QUERY = `{
-        live {
+        video(status: "LIVE") {
           _id,
-          url,
           title,
+          url,
           thumbnail,
-          channel_id,
-          channel_name,
-          channel_thumbnail,
-          organization
+          channel {
+            name,
+            avatar,
+            organization
+          }
         }
       }`
-      const graphql = 'https://mongodb-channel-and-live.herokuapp.com/';
-      const res = await fetch(graphql, {
+      const server = 'https://mongodb-video-and-channel.herokuapp.com/';
+      const res = await fetch(server, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query: QUERY })
       });
       const jsonData = await res.json();
-      const newLive = jsonData.data.live;
+      const newLive = jsonData.data.video;
 
       // add new live
       const prevLiveIdList = liveList.current.map(data => data._id);
@@ -121,7 +121,7 @@ const App = () => {
           }
       })
 
-      setVideoList([...liveList.current]);
+      setVideoList(liveList.current);
     }
     getLiveList();
     const intervalId = setInterval(getLiveList, 60000);
