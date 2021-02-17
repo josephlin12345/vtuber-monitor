@@ -69,12 +69,15 @@ body {
   left: 50%;
   cursor: default;
   margin-top: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .tool .tip {
   width: 40px;
   padding: 2.5px;
   margin-left: -22.5px;
+  font-size: small;
 }
 
 .tool:hover .tip, .live:hover .tip {
@@ -235,6 +238,9 @@ body {
 }
 
 .item-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-size: medium;
   color: gray;
 }

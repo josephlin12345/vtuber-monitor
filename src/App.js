@@ -79,9 +79,7 @@ const App = () => {
       const QUERY = `{
         video(status: "LIVE") {
           _id,
-          title,
           url,
-          thumbnail,
           channel {
             name,
             avatar,
