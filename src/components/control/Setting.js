@@ -30,15 +30,15 @@ const Setting = ({ playerList, playerSwitch, setPlayerList }) => {
         <div className='form center'>
           <IoClose className='tool close' onClick={() => setShowSetting(false)} />
           <div className='player-control-panel' onDragOver={e => e.preventDefault()}>
-            {playerList.map(data => (
+            {playerList.map(video =>
               <SettingItem
-                key={data._id}
-                data={data}
-                index={playerList.indexOf(data)}
+                key={video._id}
+                video={video}
+                index={playerList.indexOf(video)}
                 playerSwitch={playerSwitch}
                 setChange={setChange}
               />
-            ))}
+            )}
           </div>
         </div>
       </Modal>

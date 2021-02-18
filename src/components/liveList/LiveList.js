@@ -1,16 +1,16 @@
 import Live from './Live'
 
 const LiveList = ({ playerSwitch, videoList, currentOrganization }) => {
-  const filteredVideoList = videoList.filter(data => data.channel.organization === currentOrganization);
+  const filteredVideoList = videoList.filter(video => video.channel.organization === currentOrganization);
   return (
     <div className='livelist'>
-      {filteredVideoList && filteredVideoList.map(data => (
+      {filteredVideoList && filteredVideoList.map(video =>
         <Live
-          key={data._id}
-          data={data}
+          key={video._id}
+          video={video}
           playerSwitch={playerSwitch}
         />
-      ))}
+      )}
     </div>
   )
 }

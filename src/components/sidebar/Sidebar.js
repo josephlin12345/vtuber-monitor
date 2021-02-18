@@ -1,13 +1,13 @@
 import { IoMenuOutline, IoClose } from 'react-icons/io5'
 import { useState } from 'react'
 import Organization from './Organization'
-import Modal from 'react-modal'
+import Schedule from './Schedule'
 
-const Sidebar = ({ organizationsInfo, currentOrganization, setCurrentOrganization }) => {
+const Sidebar = ({ organizationsInfo, currentOrganization, setCurrentOrganization, schedule }) => {
   const [showSidebar, setShowSidebar] = useState(false);
   return (
     <>
-      <div className='sidebar-icon-contianer'>
+      <div className='sidebar-icon-container'>
         <div className='tool'>
           {showSidebar ?
             <IoClose className='tool-icon' onClick={() => setShowSidebar(!showSidebar)} /> :
@@ -17,16 +17,21 @@ const Sidebar = ({ organizationsInfo, currentOrganization, setCurrentOrganizatio
         </div>
       </div>
       {showSidebar &&
-        <Modal className='sidebar' isOpen={showSidebar} onRequestClose={() => setShowSidebar(false)}>
-          {organizationsInfo.map(organization => (
-            <Organization
-              key={organization.name}
-              image={organization.image}
-              style={currentOrganization === organization.name ? { backgroundColor: '#302020' } : {}}
-              setOrganization={() => setCurrentOrganization(organization.name)}
-            />
-          ))}
-        </Modal>
+        <>
+          <div className='sidebar'>
+            {organizationsInfo.map(organization =>
+              <Organization
+                key={organization.name}
+                image={organization.image}
+                style={currentOrganization === organization.name ? { backgroundColor: '#302020' } : {}}
+                setOrganization={() => setCurrentOrganization(organization.name)}
+              />
+            )}
+          </div>
+          <div className='schedule'>
+            {schedule.map(video => <Schedule key={video._id} video={video} />)}
+          </div>
+        </>
       }
     </>
   )

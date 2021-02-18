@@ -47,7 +47,14 @@ const Add = ({ addOtherVideo }) => {
         <div className='form center'>
           <IoClose className='tool close' onClick={() => setShowAdd(false)} />
           <IoLink className='tool' />
-          <input ref={input} className='form-text' type='text' placeholder='Youtube Link' onInput={validation} autoFocus />
+          <input
+            ref={input}
+            className='form-text'
+            type='text'
+            placeholder='Youtube Link'
+            onInput={validation}
+            autoFocus
+          />
           <IoArrowForwardCircle className='tool form-btn' onClick={getLink} />
         </div>
       </Modal>

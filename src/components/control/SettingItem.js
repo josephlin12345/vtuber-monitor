@@ -1,7 +1,7 @@
 import { IoClose, IoReorderTwo } from 'react-icons/io5'
 import { useState } from 'react'
 
-const SettingItem = ({ data, index, playerSwitch, setChange }) => {
+const SettingItem = ({ video, index, playerSwitch, setChange }) => {
   const [dragging, setDragging] = useState(false);
   return (
     <div className='item-container'
@@ -15,9 +15,9 @@ const SettingItem = ({ data, index, playerSwitch, setChange }) => {
       onDragEnd={() => setDragging(false)}
     >
       <IoReorderTwo className='tool item-move' />
-      <img className='item-icon' alt='' src={data.channel.avatar} />
-      <span className=' item-text'>{data.channel.name ? data.channel.name : data._id}</span>
-      <IoClose className='tool close' onClick={() => playerSwitch(data)} />
+      <img className='item-icon' alt='' src={video.channel.avatar} />
+      <span className=' item-text'>{video.channel.name ? video.channel.name : video._id}</span>
+      <IoClose className='tool close' onClick={() => playerSwitch(video)} />
     </div>
   )
 }

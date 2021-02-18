@@ -33,12 +33,24 @@ const organizationsInfo = [
   // {name: 'Yuni Create'},
   // {name: 'upd8'}
 ]
+const organizationNames = organizationsInfo.map(organization => `"${organization.name}"`).join(', ');
+
+const query = async QUERY => {
+  const server = 'https://mongodb-video-and-channel.herokuapp.com/';
+  const res = await fetch(server, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ query: QUERY })
+  });
+  return await res.json();
+}
 
 const App = () => {
   const [showNavbar, setNavbar] = useState(true);
   const [playerList, setPlayerList] = useState([]);
   const [videoList, setVideoList] = useState([]);
   const [currentOrganization, setCurrentOrganization] = useState('Hololive');
+  const [schedule, setSchedule] = useState([]);
   const liveList = useRef([]);
 
   // add or remove player
@@ -74,10 +86,10 @@ const App = () => {
 
   // update liveList per 60 seconds
   useEffect(() => {
-    const getLiveList = async () => {
+    const getData = async () => {
       // query live
-      const QUERY = `{
-        video(status: "LIVE") {
+      const liveQuery = `{
+        video(organizations: [${organizationNames}] status: "LIVE" ) {
           _id,
           url,
           channel {
@@ -87,14 +99,8 @@ const App = () => {
           }
         }
       }`
-      const server = 'https://mongodb-video-and-channel.herokuapp.com/';
-      const res = await fetch(server, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query: QUERY })
-      });
-      const jsonData = await res.json();
-      const newLive = jsonData.data.video;
+      const liveData = await query(liveQuery);
+      const newLive =  liveData.data.video;
 
       // add new live
       const prevLiveIdList = liveList.current.map(data => data._id);
@@ -120,9 +126,27 @@ const App = () => {
       })
 
       setVideoList(liveList.current);
+
+      // query schedule
+      const scheduleQuery = `{
+        schedule( organizations: [${organizationNames}] unixTime: ${Math.floor(Date.now() / 1000) + 86400} ) {
+          _id,
+          url,
+          startTime,
+          channel {
+            name,
+            avatar,
+            organization
+          }
+        }
+      }`
+      const scheduleData = await query(scheduleQuery);
+      const newSchedule = scheduleData.data.schedule;
+
+      setSchedule(newSchedule);
     }
-    getLiveList();
-    const intervalId = setInterval(getLiveList, 60000);
+    getData();
+    const intervalId = setInterval(getData, 60000);
     return () => clearInterval(intervalId);
   }, [])
 
@@ -141,6 +165,7 @@ const App = () => {
             organizationsInfo={organizationsInfo}
             setCurrentOrganization={setCurrentOrganization}
             currentOrganization={currentOrganization}
+            schedule={schedule.filter(video => video.channel.organization === currentOrganization)}
           />
           <LiveList
             playerSwitch={playerSwitch}
