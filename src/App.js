@@ -54,18 +54,18 @@ const App = () => {
   const liveList = useRef([]);
 
   // add or remove player
-  const playerSwitch = data => {
+  const playerSwitch = video => {
     // update videoList and playerList
-    if(data.isEnded) {
-      videoList.splice(videoList.indexOf(data), 1);
-      setPlayerList(prev => prev.filter(player => player !== data));
+    if(video.isEnded) {
+      videoList.splice(videoList.indexOf(video), 1);
+      setPlayerList(prev => prev.filter(player => player !== video));
     }
     else {
-      data.isPlaying = !data.isPlaying;
-      if(data.isPlaying)
-        setPlayerList(prev => [...prev, data]);
+      video.isPlaying = !video.isPlaying;
+      if(video.isPlaying)
+        setPlayerList(prev => [...prev, video]);
       else
-        setPlayerList(prev => prev.filter(player => player !== data));
+        setPlayerList(prev => prev.filter(player => player !== video));
     }
   }
 
@@ -79,6 +79,7 @@ const App = () => {
       }
     }
     else {
+      video.isPlaying = true;
       videoList.push(video);
       setPlayerList(prev => [...prev, video]);
     }
@@ -103,24 +104,21 @@ const App = () => {
       const newLive =  liveData.data.video;
 
       // add new live
-      const prevLiveIdList = liveList.current.map(data => data._id);
-      newLive.forEach(data => {
-        if(!prevLiveIdList.includes(data._id))
-          liveList.current.push({
-            ...data,
-            isPlaying: false,
-            isEnded: false
-          });
+      newLive.forEach(video => {
+        const data = liveList.current.find(data => data._id === video._id);
+        if(!data)
+          liveList.current.push(video);
+        else
+          data.ordered = false;
       });
 
       // remove ended live
-      const newLiveIdList = newLive.map(data => data._id);
-      liveList.current.forEach(live => {
-        if(!newLiveIdList.includes(live._id))
-          if(live.isPlaying)
-            live.isEnded = true;
-          else {
-            const index = liveList.current.indexOf(live);
+      liveList.current.forEach(video => {
+        if(!newLive.find(data => data._id === video._id))
+          if(video.isPlaying && !video.ordered)
+            video.isEnded = true;
+          else if(!video.isPlaying && !video.ordered) {
+            const index = liveList.current.indexOf(video);
             liveList.current.splice(index, 1);
           }
       })
@@ -143,7 +141,7 @@ const App = () => {
         }
       }`
       const scheduleData = await query(scheduleQuery);
-      const newSchedule = scheduleData.data.schedule;
+      const newSchedule = scheduleData.data.schedule.map(video => { return { ...video, ordered: true }});
 
       setSchedule(newSchedule);
     }
@@ -168,7 +166,7 @@ const App = () => {
             setCurrentOrganization={setCurrentOrganization}
             currentOrganization={currentOrganization}
             schedule={schedule.filter(video => video.channel.organization === currentOrganization)}
-            playerSwitch={playerSwitch}
+            addOtherVideo={addOtherVideo}
           />
           <LiveList
             playerSwitch={playerSwitch}

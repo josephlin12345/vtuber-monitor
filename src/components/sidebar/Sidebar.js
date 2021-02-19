@@ -3,7 +3,7 @@ import { useState } from 'react'
 import Organization from './Organization'
 import Schedule from './Schedule'
 
-const Sidebar = ({ organizationsInfo, currentOrganization, setCurrentOrganization, schedule, playerSwitch }) => {
+const Sidebar = ({ organizationsInfo, currentOrganization, setCurrentOrganization, schedule, addOtherVideo }) => {
   const [showSidebar, setShowSidebar] = useState(false);
   const [currentSchedule, setCurrentSchedule] = useState();
   return (
@@ -37,7 +37,7 @@ const Sidebar = ({ organizationsInfo, currentOrganization, setCurrentOrganizatio
                 style={currentSchedule === video ? { backgroundColor: '#302020' } : {}}
                 currentSchedule={currentSchedule}
                 setCurrentSchedule={() => setCurrentSchedule(video)}
-                playerSwitch={playerSwitch}
+                addOtherVideo={addOtherVideo}
               />
             )}
           </div>
