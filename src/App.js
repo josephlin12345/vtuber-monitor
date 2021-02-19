@@ -133,6 +133,8 @@ const App = () => {
           _id,
           url,
           startTime,
+          thumbnail,
+          title,
           channel {
             name,
             avatar,
@@ -166,6 +168,7 @@ const App = () => {
             setCurrentOrganization={setCurrentOrganization}
             currentOrganization={currentOrganization}
             schedule={schedule.filter(video => video.channel.organization === currentOrganization)}
+            playerSwitch={playerSwitch}
           />
           <LiveList
             playerSwitch={playerSwitch}

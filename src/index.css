@@ -143,7 +143,7 @@ body {
   position: relative;
 }
 
-.organization-image:hover {
+.organization-image:hover, .schedule-text:hover, .schedule-title:hover {
   opacity: 0.3;
 }
 
@@ -254,7 +254,7 @@ body {
   gap: 10px;
 }
 
-.schedule-thumbnail {
+.schedule-avatar {
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -265,4 +265,26 @@ body {
 .schedule-text {
   width: 200px;
   margin-top: 10px;
+}
+
+.schedule-info-container {
+  position: absolute;
+  top: 90px;
+  left: 560px;
+  width: 400px;
+  background-color: rgb(21, 25, 29);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.schedule-thumbnail {
+  margin: auto;
+  margin-top: 10px;
+  display: block;
+}
+
+.schedule-title {
+  text-align: center;
+  margin: 10px;
+  white-space: normal;
 }
