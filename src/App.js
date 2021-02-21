@@ -36,7 +36,7 @@ const organizationsInfo = [
 const organizationNames = organizationsInfo.map(organization => `"${organization.name}"`).join(', ');
 
 const query = async QUERY => {
-  const server = 'https://mongodb-video-and-channel.herokuapp.com/';
+  const server = 'https://vtuber-monitor-mongodb.herokuapp.com/';
   const res = await fetch(server, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
