@@ -69,20 +69,11 @@ const App = () => {
     }
   }
 
-  // add other video and filter them
+  // add other video
   const addOtherVideo = video => {
-    const data = videoList.find(data => data._id === video._id);
-    if(data) {
-      if(!data.isPlaying) {
-        data.isPlaying = true;
-        setPlayerList(prev => [...prev, data]);
-      }
-    }
-    else {
-      video.isPlaying = true;
-      videoList.push(video);
-      setPlayerList(prev => [...prev, video]);
-    }
+    video.isPlaying = true;
+    videoList.push(video);
+    setPlayerList(prev => [...prev, video]);
   }
 
   // update liveList per 60 seconds
