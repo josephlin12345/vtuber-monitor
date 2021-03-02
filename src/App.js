@@ -4,6 +4,7 @@ import PlayerGrid from './components/players/PlayerGrid'
 import Control from './components/control/Control'
 import Open from './components/control/Open'
 import Sidebar from './components/sidebar/Sidebar'
+import axios from 'axios'
 
 const organizationsInfo = [
   {name: 'Hololive', image: 'https://hololive.jetri.co/543a3b13045e7fc3411b70357388d2e5.png'},
@@ -37,12 +38,12 @@ const organizationNames = organizationsInfo.map(organization => `"${organization
 
 const query = async QUERY => {
   const server = 'https://vtuber-monitor-mongodb.herokuapp.com/';
-  const res = await fetch(server, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ query: QUERY })
+  const res = await axios({
+    url: server,
+    method: 'post',
+    data: { query: QUERY }
   });
-  return await res.json();
+  return res.data;
 }
 
 const App = () => {
