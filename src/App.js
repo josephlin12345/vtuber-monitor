@@ -72,9 +72,10 @@ const App = () => {
 
   // add other video
   const addOtherVideo = video => {
-    video.isPlaying = true;
-    videoList.push(video);
-    setPlayerList(prev => [...prev, video]);
+    if(!videoList.find(item => item._id === video._id)) {
+      videoList.push(video);
+    }
+    playerSwitch(video);
   }
 
   // update liveList per 60 seconds
