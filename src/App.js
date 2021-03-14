@@ -8,6 +8,9 @@ import axios from 'axios'
 
 const organizationsInfo = [
   {name: 'Hololive', image: 'https://hololive.jetri.co/543a3b13045e7fc3411b70357388d2e5.png'},
+  {name: 'Hololive-EN', image: 'https://hololive.jetri.co/543a3b13045e7fc3411b70357388d2e5.png'},
+  {name: 'Hololive-ID', image: 'https://hololive.jetri.co/543a3b13045e7fc3411b70357388d2e5.png'},
+  {name: 'Holostars', image: 'https://hololive.jetri.co/543a3b13045e7fc3411b70357388d2e5.png'},
   {name: 'Nijisanji', image: 'https://hololive.jetri.co/1158f60d96fbee3081984add9dfdb33f.png'},
   {name: 'AniMare', image: 'https://hololive.jetri.co/ca275bd058b943dfeb7b1148426d1578.png'},
   // {name: 'Hanayori Joshiryo', image: 'https://hololive.jetri.co/42f9e13088996a823deaef18ca8c815b.png'},
