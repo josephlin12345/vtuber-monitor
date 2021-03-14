@@ -37,7 +37,7 @@ const organizationsInfo = [
   // {name: 'Yuni Create'},
   // {name: 'upd8'}
 ]
-const organizationNames = organizationsInfo.map(organization => `"${organization.name}"`).join(', ');
+const organizationNames = organizationsInfo.map(organization => `"${organization.name.replace('"', '\\"')}"`).join(', ');
 
 const query = async QUERY => {
   const server = 'https://vtuber-monitor-mongodb.herokuapp.com/';
