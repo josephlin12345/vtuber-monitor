@@ -4,5 +4,5 @@ Work in progress.
 
 deployed on netlify: https://vtuber-monitor.netlify.app/
 
-↓ any suggestion or issue ↓
+↓ any suggestion or issue ↓  
 discord: 浚.#7748
