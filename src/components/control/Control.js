@@ -1,6 +1,7 @@
 import Add from './Add'
 import Setting from './Setting'
 import Close from './Close'
+import Info from './Info'
 import Modal from 'react-modal'
 
 Modal.setAppElement('#root');
@@ -15,6 +16,7 @@ const Control = ({ navbarSwitch, addOtherVideo, playerList, playerSwitch, setPla
         playerSwitch={playerSwitch}
         setPlayerList={setPlayerList}
       />
+      <Info />
       <Close navbarSwitch={navbarSwitch} />
     </div>
   )

@@ -93,7 +93,7 @@ body {
 }
 
 .livelist {
-  max-width: calc(100vw - 200px);
+  max-width: calc(100vw - 245px);
   height: 90px;
   display: flex;
 }
