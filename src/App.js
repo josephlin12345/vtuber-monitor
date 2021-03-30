@@ -53,7 +53,7 @@ const App = () => {
   const [showNavbar, setNavbar] = useState(true);
   const [playerList, setPlayerList] = useState([]);
   const [videoList, setVideoList] = useState([]);
-  const [currentOrganization, setCurrentOrganization] = useState('Hololive');
+  const [currentOrganization, setCurrentOrganization] = useState(organizationsInfo[0].name);
   const [schedule, setSchedule] = useState([]);
   const liveList = useRef([]);
 
@@ -105,15 +105,15 @@ const App = () => {
         if(!data)
           liveList.current.push(video);
         else
-          data.ordered = false;
+          data.startTime = null;
       });
 
       // remove ended live
       liveList.current.forEach(video => {
-        if(!newLive.find(data => data._id === video._id))
-          if(video.isPlaying && !video.ordered)
+        if(!newLive.find(data => data._id === video._id) && !video.startTime)
+          if(video.isPlaying)
             video.isEnded = true;
-          else if(!video.isPlaying && !video.ordered) {
+          else {
             const index = liveList.current.indexOf(video);
             liveList.current.splice(index, 1);
           }
@@ -137,9 +137,7 @@ const App = () => {
         }
       }`
       const scheduleData = await query(scheduleQuery);
-      const newSchedule = scheduleData.data.schedule.map(video => { return { ...video, ordered: true }});
-
-      setSchedule(newSchedule);
+      setSchedule(scheduleData.data.schedule);
     }
     getData();
     const intervalId = setInterval(getData, 60000);
